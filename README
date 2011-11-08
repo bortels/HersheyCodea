@@ -16,40 +16,14 @@ HersheyCodes - Hershey Fonts for Codea
 -- on the shoulders of Giants."
 -- Isaac Newton
 
-Usage:
+Some notes on usage: 
 
--- Hello World
-function setup()
-   f = HersheyRoman()
-end
-function draw()
-   f:drawstring("Hello World", 100, WIDTH/2)
-end
+Each font is stored in it's own class file - for example, RomanSimplex.lua is a self-contained class
+for the Hershey Roman Simplex font. The code in each class file should be identical - the only
+thing that changes is the data describing the font. To use a font, all you need to do is grab the
+single file containing the class for that font, and put it in a tab in your Codea project. 
 
--- Hello World (object-oriented)
-function setup()
-   f = HersheyRoman()
-   f:addlabel("Hello World")
-end
-function draw()
-   f:draw()
-end
+The main.lua is full of demonstrations on how to use the fonts, along with some examples of doing things
+like spinning text, changing colors, scrolling text, etc. The only *required* part of that main.lua is
+the first call in setup that instances the font class ( "f = HersheyRomanSimplex()" in this example ).
 
-More complex:
-
-  shoe = f:addlabel("Galoshes!", x, y, size, rot, color)
-  -- where x, y are x,y location of lower left
-  --       size is the scale multiplier (2 is twice as big)
-  --       rot is the rotation in degrees
-  --       color is a table { R G B Alpha } (ie. like stroke() )
-  fade=255
-
-  -- later, in draw():
-  shoe.rot = shoe.rot + 1
-  shoe.size = math.sin(ElapsedTime)
-  fade = fade - 1
-  shoe.color = { 255, 255, 255, fade } -- Poof!  
-
-see main.lua for more (working!) examples. 
-
-Note that main.lua is a demo - you need only add HersheyRoman.lua to your project and go. 
