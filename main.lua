@@ -1,4 +1,11 @@
+-- dofile("loveCodify.lua")
+
+-- dofile("Font/romansimplex.lua")
+
 -- Just a "Main" tab for Codea to demo the class
+-- DON'T PANIC!
+-- You don't need any of this - all of the Font is in the Font Class
+-- This is just a few examples to show you how you might call it.
 
 function setup()
    f=Font()
@@ -10,8 +17,8 @@ function setup()
    speed=2
    parameter("speed", 0, 8, speed)
    x=50
-   text = "Why do you necessarily have to be wrong just because "
-       .. "a few million people think you are?     "
+   text = "  Why do you necessarily have to be wrong just because "
+       .. "a few million people think you are?  "
     bannerscale= 2
     parameter("bannerscale", 0, 10, bannerscale)
    bannerlength = f:stringwidth(text, bannerscale)
@@ -19,6 +26,7 @@ function setup()
    spinscale = 1.5
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
+   lab = f.labels[f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })]
 end
 
 function draw()
@@ -31,9 +39,9 @@ function draw()
    f:drawstring("Hershey Roman Simplex " .. frame, 150, 200)
    -- smooth scroll
    stroke(140, 147, 215, 255)
-   local bl = f:drawstring(text .. text,
+   local bl = f:drawstring(text .. text ,
                            x - offset, HEIGHT/2,
-                           bannerscale)
+                           bannerscale) /2
    offset = offset + speed
    if (offset > bl) then offset = 0 end
 
@@ -48,10 +56,19 @@ function draw()
     f:drawstring("Daddy loves Gracie and Maddy", 200, 20)
     
    -- spinner (using external positioning)
+   pushMatrix()
    translate(200, 550)
    rotate(frame*2.5)
    translate(0-spinwidth/2, -10)
    stroke(255, 252, 0, 255)
    f:drawstring(spintxt, 0, 0, spinscale)
+   popMatrix()
 
+   -- label
+   lab.x = math.sin(frame/300) * (WIDTH/3) + WIDTH/2
+   lab.y = math.cos(frame/300) * (HEIGHT/3) + HEIGHT/2
+   lab.rot = math.sin(frame/300) * 5
+   lab.color = { 255, 40, 40, math.sin(frame/3) * 100 + 155 }
+   -- lab.rot = lab.rot + 1
+   f:draw()
 end

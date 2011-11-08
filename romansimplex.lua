@@ -14,6 +14,7 @@ Font = class()
 
 -- "If I have seen a little further it is by standing
 -- on the shoulders of Giants."
+-- Isaac Newton
 
 function Font:init()
    -- font data - 2 decimal character # of points,
@@ -92,6 +93,38 @@ function Font:init()
       self.decode[c]=i
       i=i+1
    end
+
+   -- label support
+   self.labels = {}
+   
+end
+
+function Font:addlabel(txt, x, y, size, rot, color)
+   txt = txt or "demo"
+   x = x or WIDTH/2
+   y = y or HEIGHT/2
+   size = size or 1
+   rot = rot or 0
+   color = color or { 255, 255, 255, 255 }
+   table.insert(self.labels, { txt=txt, x=x, y=y, size=size, rot=rot, color=color } )
+   return (# self.labels)
+end
+
+function Font:drawlabel(n)
+   local l = self.labels[n]
+   pushMatrix()
+   translate(l.x, l.y)
+   rotate(l.rot)
+   stroke(unpack(l.color))
+   self:drawstring(l.txt, 0, 0, l.size)
+   popMatrix()
+end
+
+function Font:draw()
+   local l, i = # self.labels
+   for i=1, l do
+      self:drawlabel(i)
+   end
 end
    
 function Font:stringwidth(s, sc)
@@ -110,13 +143,18 @@ function Font:drawstring(s, x, y, sc)
    l = string.len(s)
    for i = 1, l do
       local c = s:sub(i, i)
-      local w = self.font[c].width * sc
-      if ((x + w) >= 0) then
-         x = x + (self:drawchar(c, x, y, sc))
+      local w = self.font[c].width 
+--      if ((x + w) >= 0) then
+--         x = x + (self:drawchar(c, x, y, sc))
+--      else
+--         x = x + w * sc
+--      end
+--   if (x > WIDTH) then break end -- skip offscreen
+      if ((x+w) <0) or (x > WIDTH) then
+         x = x + w * sc
       else
-         x = x + w
+         x = x + (self:drawchar(c, x, y, sc))
       end
-      if (x > WIDTH) then break end -- skip offscreen
    end
    return x - ox
 end
