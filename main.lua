@@ -30,7 +30,7 @@ function setup()
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
    lab = f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })
-   -- lab = f:addlabel{ txt="Don't Panic!", x=100, y=400, size=1, rot=45, color={255, 255, 0, 255} }
+   lab2 = f:addlabel{ txt="BULLY FOR YOU", x=10, y=700, size=1, rot=-45, color={0, 255, 255, 255} }
    -- setup for particle fountain
    grav=0.7
    yimpulse=25

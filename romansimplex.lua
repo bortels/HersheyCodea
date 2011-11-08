@@ -100,13 +100,20 @@ function HersheyRomanSimplex:init()
 end
 
 function HersheyRomanSimplex:addlabel(txt, x, y, size, rot, color)
-   txt = txt or "demo"
-   x = x or WIDTH/2
-   y = y or HEIGHT/2
-   size = size or 1
-   rot = rot or 0
-   color = color or { 255, 255, 255, 255 }
-   table.insert(self.labels, { txt=txt, x=x, y=y, size=size, rot=rot, color=color } )
+   if type(txt) == "table" then
+      local proto = { txt="UNDEFINED", x=0, y=0, size=1, rot=0, color={ 255, 255, 255, 255 } }
+      local k, v
+      for k,v in pairs(txt) do proto[k] = v end
+      table.insert(self.labels, proto)
+   else
+      txt = txt or "demo"
+      x = x or WIDTH/2
+      y = y or HEIGHT/2
+      size = size or 1
+      rot = rot or 0
+      color = color or { 255, 255, 255, 255 }
+      table.insert(self.labels, { txt=txt, x=x, y=y, size=size, rot=rot, color=color } )
+   end
    return self.labels[# self.labels]
 end
 
