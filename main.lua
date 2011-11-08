@@ -30,6 +30,7 @@ function setup()
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
    lab = f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })
+   -- lab = f:addlabel{ txt="Don't Panic!", x=100, y=400, scale=1, rot=45, color={255, 255, 0, 255} }
 end
 
 function draw()
