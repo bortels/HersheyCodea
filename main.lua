@@ -4,11 +4,11 @@
 
 -- Just a "Main" tab for Codea to demo the class
 -- DON'T PANIC!
--- You don't need any of this - all of the Font is in the Font Class
+-- You don't need any of this - all of the Font is in the class.
 -- This is just a few examples to show you how you might call it.
 
 function setup()
-   f=Font()
+   f=HersheyRomanSimplex()
    f:init()
    frame=1
    offset = 0

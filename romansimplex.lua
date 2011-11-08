@@ -1,4 +1,4 @@
-Font = class()
+HersheyRomanSimplex = class()
 
 -- The Hershey Fonts were originally created by Dr.
 -- A. V. Hershey while working at the
@@ -16,7 +16,7 @@ Font = class()
 -- on the shoulders of Giants."
 -- Isaac Newton
 
-function Font:init()
+function HersheyRomanSimplex:init()
    -- font data - 2 decimal character # of points,
    -- followed by 2*points of point data
    -- 9->-9, 8-<-8, ... 1->-1, 0->0, A->1, B->2, ... Z->26
@@ -99,7 +99,7 @@ function Font:init()
    
 end
 
-function Font:addlabel(txt, x, y, size, rot, color)
+function HersheyRomanSimplex:addlabel(txt, x, y, size, rot, color)
    txt = txt or "demo"
    x = x or WIDTH/2
    y = y or HEIGHT/2
@@ -110,7 +110,7 @@ function Font:addlabel(txt, x, y, size, rot, color)
    return (# self.labels)
 end
 
-function Font:drawlabel(n)
+function HersheyRomanSimplex:drawlabel(n)
    local l = self.labels[n]
    pushMatrix()
    translate(l.x, l.y)
@@ -120,14 +120,14 @@ function Font:drawlabel(n)
    popMatrix()
 end
 
-function Font:draw()
+function HersheyRomanSimplex:draw()
    local l, i = # self.labels
    for i=1, l do
       self:drawlabel(i)
    end
 end
    
-function Font:stringwidth(s, sc)
+function HersheyRomanSimplex:stringwidth(s, sc)
     sc = sc or 1
     local x, l, i = 0, string.len(s)
     for i=1, l do
@@ -136,7 +136,7 @@ function Font:stringwidth(s, sc)
     return x
 end
 
-function Font:drawstring(s, x, y, sc)
+function HersheyRomanSimplex:drawstring(s, x, y, sc)
    sc = sc or 1
     local ox=x
    local l, i
@@ -159,7 +159,7 @@ function Font:drawstring(s, x, y, sc)
    return x - ox
 end
 
-function Font:drawchar(c, x, y, sc)
+function HersheyRomanSimplex:drawchar(c, x, y, sc)
    sc = sc or 1
    local ax, ay, bx, by, minx, maxx = -1, -1, -1, -1, -1, -1
    local p, plot
