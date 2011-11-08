@@ -7,8 +7,9 @@
 -- This is just a few examples to show you how you might call it.
 
 function setup()
+   -- instantiate the font; this is the only "required" line. 
    f=HersheyRomanSimplex()
-   f:init()
+   -- initialize some variables for the demos in draw()
    frame=1
    offset = 0
    stroke_width=2
@@ -18,25 +19,27 @@ function setup()
    x=50
    text = "  Why do you necessarily have to be wrong just because "
        .. "a few million people think you are?  "
-    bannerscale= 2
-    parameter("bannerscale", 0, 10, bannerscale)
+   bannerscale= 2
+   parameter("bannerscale", 0, 10, bannerscale)
    bannerlength = f:stringwidth(text, bannerscale)
    spintxt = "Bananas!"
    spinscale = 1.5
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
---   lab = f.labels[f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })]
    lab = f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })
 end
 
 function draw()
-   background(0, 0, 0, 255)
+   background(0, 0, 0, 255) -- clear screen
    frame = frame + 1 -- used by lots of things
    stroke(226, 235, 234, 255)
    noSmooth()
    strokeWidth(stroke_width)
    lineCapMode(ROUND)
+   
+   -- simple text printing
    f:drawstring("Hershey Roman Simplex " .. frame, 150, 200)
+   
    -- smooth scroll
    stroke(140, 147, 215, 255)
    local bl = f:drawstring(text .. text ,
@@ -69,6 +72,5 @@ function draw()
    lab.y = math.cos(frame/300) * (HEIGHT/3) + HEIGHT/2
    lab.rot = math.sin(frame/300) * 5
    lab.color = { 255, 40, 40, math.sin(frame/3) * 100 + 155 }
-   -- lab.rot = lab.rot + 1
    f:draw()
 end
