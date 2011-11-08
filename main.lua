@@ -1,5 +1,8 @@
---dofile("loveCodify.lua")
---dofile("HersheyCodea/romansimplex.lua")
+LOVECODIFYHUD = false
+if dofile ~= nil then
+   dofile("loveCodify.lua")
+   dofile("HersheyCodea/romansimplex.lua")
+end
 
 -- Just a "Main" tab for Codea to demo the class
 -- DON'T PANIC!
