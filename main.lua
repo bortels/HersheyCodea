@@ -30,6 +30,18 @@ function setup()
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
    lab = f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })
+   -- setup for particle fountain
+   grav=0.7
+   yimpulse=25
+   ximpulse=20
+   local p, i = 300
+   for i=1, p do
+      local t = f:addlabel(string.char(33+math.random(92)), math.random(WIDTH), math.random(HEIGHT), 1, 0,
+                { math.random(128)+127, math.random(128)+127, math.random(128)+127, 255} )
+      t.yv = math.random(yimpulse)
+      t.xv = math.random(ximpulse)-ximpulse/2
+      t.rv = (math.random() - 0.5) / 10
+   end                    
 end
 
 function draw()
@@ -76,4 +88,19 @@ function draw()
    lab.rot = math.sin(frame/300) * 5
    lab.color = { 255, 40, 40, math.sin(frame/3) * 100 + 155 }
    f:draw()
+      for i=1, # f.labels do
+      local t = f.labels[i]
+      if (t.xv) then -- only if it's a particle
+         t.x = t.x + t.xv
+         t.y = t.y + t.yv
+         t.yv = t.yv - grav
+         t.rot = t.rot + t.rv
+         if (t.y < -20) then -- offscreen
+            t.yv = math.random(yimpulse)
+            t.xv = math.random(ximpulse)-ximpulse/2
+            t.x = WIDTH/2
+            t.y = HEIGHT/2
+         end
+      end
+   end
 end
