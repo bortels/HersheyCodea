@@ -30,6 +30,7 @@ function setup()
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
    lab = f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })
+<<<<<<< HEAD
    -- setup for particle fountain
    grav=0.7
    yimpulse=25
@@ -42,6 +43,9 @@ function setup()
       t.xv = math.random(ximpulse)-ximpulse/2
       t.rv = (math.random() - 0.5) / 10
    end                    
+=======
+   -- lab = f:addlabel{ txt="Don't Panic!", x=100, y=400, size=1, rot=45, color={255, 255, 0, 255} }
+>>>>>>> c9239369ceb7262c348e881235f882ead6e75c1d
 end
 
 function draw()
