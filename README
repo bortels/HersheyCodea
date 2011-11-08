@@ -16,3 +16,40 @@ HersheyCodes - Hershey Fonts for Codea
 -- on the shoulders of Giants."
 -- Isaac Newton
 
+Usage:
+
+-- Hello World
+function setup()
+   f = HersheyRoman()
+end
+function draw()
+   f:drawstring("Hello World", 100, WIDTH/2)
+end
+
+-- Hello World (object-oriented)
+function setup()
+   f = HersheyRoman()
+   f:addlabel("Hello World")
+end
+function draw()
+   f:draw()
+end
+
+More complex:
+
+  shoe = f:addlabel("Galoshes!", x, y, size, rot, color)
+  -- where x, y are x,y location of lower left
+  --       size is the scale multiplier (2 is twice as big)
+  --       rot is the rotation in degrees
+  --       color is a table { R G B Alpha } (ie. like stroke() )
+  fade=255
+
+  -- later, in draw():
+  shoe.rot = shoe.rot + 1
+  shoe.size = math.sin(ElapsedTime)
+  fade = fade - 1
+  shoe.color = { 255, 255, 255, fade } -- Poof!  
+
+see main.lua for more (working!) examples. 
+
+Note that main.lua is a demo - you need only add HersheyRoman.lua to your project and go. 

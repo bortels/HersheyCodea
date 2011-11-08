@@ -107,7 +107,7 @@ function HersheyRomanSimplex:addlabel(txt, x, y, size, rot, color)
    rot = rot or 0
    color = color or { 255, 255, 255, 255 }
    table.insert(self.labels, { txt=txt, x=x, y=y, size=size, rot=rot, color=color } )
-   return (# self.labels)
+   return self.labels[# self.labels]
 end
 
 function HersheyRomanSimplex:drawlabel(n)

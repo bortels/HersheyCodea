@@ -1,6 +1,5 @@
--- dofile("loveCodify.lua")
-
--- dofile("Font/romansimplex.lua")
+--dofile("loveCodify.lua")
+--dofile("HersheyCodea/romansimplex.lua")
 
 -- Just a "Main" tab for Codea to demo the class
 -- DON'T PANIC!
@@ -26,7 +25,8 @@ function setup()
    spinscale = 1.5
    spinwidth = f:stringwidth(spintxt, spinscale)
    rf = 0.03 -- rainbow frequency
-   lab = f.labels[f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })]
+--   lab = f.labels[f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })]
+   lab = f:addlabel("Don't Panic!", 100, 400, 1, 45, { 255, 255, 0, 255 })
 end
 
 function draw()
