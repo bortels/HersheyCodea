@@ -37,11 +37,9 @@ function setup()
    ximpulse=20
    local p, i = 300
    for i=1, p do
-      local t = f:addlabel(string.char(33+math.random(92)), math.random(WIDTH), math.random(HEIGHT), 1, 0,
-                { math.random(128)+127, math.random(128)+127, math.random(128)+127, 255} )
-      t.yv = math.random(yimpulse)
-      t.xv = math.random(ximpulse)-ximpulse/2
-      t.rv = (math.random() - 0.5) / 10
+      local t = f:addlabel{ txt=string.char(33+math.random(92)), x=math.random(WIDTH), y=math.random(HEIGHT),
+                color={ math.random(128)+127, math.random(128)+127, math.random(128)+127, 255},
+                yv=math.random(yimpulse), xv=math.random(ximpulse)-ximpulse/2, rv=(math.random() - 0.5) / 10 }
    end                    
 end
 
