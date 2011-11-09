@@ -119,6 +119,7 @@ end
 
 function HersheyRomanSimplex:drawlabel(n)
    local l = self.labels[n]
+   if (l.skip) then return end
    pushMatrix()
    translate(l.x, l.y)
    rotate(l.rot)
