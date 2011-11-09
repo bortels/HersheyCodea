@@ -117,8 +117,7 @@ function HersheyRomanSimplex:addlabel(txt, x, y, size, rot, color)
    return self.labels[# self.labels]
 end
 
-function HersheyRomanSimplex:drawlabel(n)
-   local l = self.labels[n]
+function HersheyRomanSimplex:drawlabel(l)
    if (l.skip) then return end
    pushMatrix()
    translate(l.x, l.y)
@@ -129,9 +128,9 @@ function HersheyRomanSimplex:drawlabel(n)
 end
 
 function HersheyRomanSimplex:draw()
-   local l, i = # self.labels
-   for i=1, l do
-      self:drawlabel(i)
+   local k, v
+   for k, v in pairs(self.labels) do
+      self:drawlabel(v)
    end
 end
    
