@@ -35,7 +35,7 @@ function setup()
    grav=0.7
    yimpulse=25
    ximpulse=20
-   local p, i = 300
+   local p, i = 50
    for i=1, p do
       local t = f:addlabel{ txt=string.char(33+math.random(92)), x=math.random(WIDTH), y=math.random(HEIGHT),
                 color={ math.random(128)+127, math.random(128)+127, math.random(128)+127, 255}, skip=true,
