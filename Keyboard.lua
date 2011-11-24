@@ -113,14 +113,13 @@ function Keyboard:draw()
         local r2,k,v = self.radius^2
         for k,v in pairs(self.keyinfo) do
             if (self:d2({v.x, v.y}, {t.x, t.y}) < r2) then
-                local txt = self.text.txt
                 if (v.glyph == "Shift") then
                     self.shifted = not self.shifted
                 else 
                     if (self.shifted) then
-                        txt = txt .. v.schr
+                        self.text.txt = self.text.txt .. v.schr
                     else
-                        txt = txt .. v.chr
+                        self.text.txt = self.text.txt .. v.chr
                     end
                 end
             end
