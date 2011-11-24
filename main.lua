@@ -33,14 +33,9 @@ function setup()
    lab2 = f:addlabel{ txt="TOUCH SCREEN FOR TOP FUN", x=10, y=700, size=0.5, rot=0, color={0, 255, 255, 255} }
    -- setup for particle fountain
    grav=0.7
-   yimpulse=25
+   yimpulse=5
    ximpulse=20
-   local p, i = 50
-   for i=1, p do
-      local t = f:addlabel{ txt=string.char(33+math.random(92)), x=math.random(WIDTH), y=math.random(HEIGHT),
-                color={ math.random(128)+127, math.random(128)+127, math.random(128)+127, 255}, skip=true,
-                yv=math.random(yimpulse), xv=math.random(ximpulse)-ximpulse/2, rv=(math.random() - 0.5) / 10 }
-   end                    
+    k=Keyboard()
 end
 
 function draw()
@@ -50,9 +45,11 @@ function draw()
    noSmooth()
    strokeWidth(stroke_width)
    lineCapMode(ROUND)
+
+    k:draw()
    
    -- simple text printing
-   f:drawstring("Hershey Roman Simplex " .. frame, 150, 200)
+   f:drawstring("Hershey Roman Simplex " .. frame, 150, 300)
    
    -- smooth scroll
    stroke(140, 147, 215, 255)
@@ -70,7 +67,7 @@ function draw()
    stroke(math.sin(rf*frame)*127 + 128,
           math.sin(rf*frame + 2)*127 + 128,
           math.sin(rf*frame + 4)*127 + 128, 255)
-    f:drawstring("Daddy loves Gracie and Maddy", 200, 20)
+    f:drawstring("Daddy loves Gracie and Maddy", 200, 25)
     
    -- spinner (using external positioning)
    pushMatrix()
@@ -86,21 +83,21 @@ function draw()
    lab.y = math.cos(frame/300) * (HEIGHT/3) + HEIGHT/2
    lab.rot = math.sin(frame/300) * 5
    lab.color = { 255, 40, 40, math.sin(frame/3) * 100 + 155 }
-   local cts = CurrentTouch.state
    f:draw()
-   for i=1, # f.labels do
-      local t = f.labels[i]
-      if (t.xv) then -- only if it's a particle
-         if (cts == MOVING) then t.skip=false else t.skip=true end
-         t.x = t.x + t.xv
-         t.y = t.y + t.yv
-         t.yv = t.yv - grav
-         t.rot = t.rot + t.rv
-         if (t.y < -20) then -- offscreen
-            t.yv = math.random(yimpulse)
-            t.xv = math.random(ximpulse)-ximpulse/2
-            t.x = CurrentTouch.x
-            t.y = CurrentTouch.y
+   if (CurrentTouch.state == 2) then
+      f:addlabel{ txt=string.char(33+math.random(92)), x=CurrentTouch.x, y=CurrentTouch.y, rot=math.random(360),
+                  color={ math.random(128)+127, math.random(128)+127, math.random(128)+127, 255}, rot=math.random(360),
+                  yv=math.random(yimpulse), xv=math.random(ximpulse)-ximpulse/2, rv=(math.random() - 0.5) / 10 }
+   end
+   local k,v
+   for k,v in pairs(f.labels) do
+      if (v.xv) then -- only if it's a particle
+         v.x = v.x + v.xv
+         v.y = v.y + v.yv
+         v.yv = v.yv - grav
+         v.rot = v.rot + v.rv
+         if (v.y < -20) then -- offscreen
+            f.labels[k]=nil
          end
       end
    end
