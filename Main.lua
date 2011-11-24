@@ -1,7 +1,7 @@
 LOVECODIFYHUD = false
 if dofile ~= nil then
    dofile("loveCodify.lua")
-   dofile("HersheyCodea/romansimplex.lua")
+   dofile("HersheyCodea/Romansimplex.lua")
 end
 
 -- Just a "Main" tab for Codea to demo the class
