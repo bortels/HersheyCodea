@@ -44,8 +44,8 @@ function Keyboard:init()
     quote = { chr="'", glyph="'", schr='"', sglyph='"', row=2, col=13 },
     enter = { chr="", glyph="enter", schr="",
         sglyph="enter", row=2, col=14 },
-    lshift = { chr="", glyph="SHIFT", schr="",
-        sglyph="shift", row=1, col=2 },
+    lshift = { chr="", glyph="Shift", schr="",
+        sglyph="Shift", row=1, col=2 },
     z = { chr="z", glyph="z", schr="Z", sglyph="Z", row=1, col=4 },
     x = { chr="x", glyph="x", schr="X", sglyph="X", row=1, col=5 },
     c = { chr="c", glyph="c", schr="C", sglyph="C", row=1, col=6 },
@@ -56,12 +56,12 @@ function Keyboard:init()
     comma = { chr=",", glyph=",", schr="<", sglyph="<", row=1, col=11 },
     dot = { chr=".", glyph=".", schr=">", sglyph=">", row=1, col=12 },
     slash = { chr="/", glyph="/", schr="?", sglyph="?", row=1, col=13 },
-    rshift = { chr="", glyph="SHIFT", schr="",
-        sglyph="shift", row=1, col=14 },
+    rshift = { chr="", glyph="Shift", schr="",
+        sglyph="Shift", row=1, col=14 },
     space = { chr=" ", glyph="space", schr="", sglyph="space", row=0, col=7 }
-
-                   }
+    }
    self.radius = 25 
+    self.shifted = false
    self.keyfont = HersheyRomanSimplex()
    self.shiftkeyfont = HersheyRomanSimplex()
     self.display = HersheyRomanSimplex()
@@ -97,19 +97,31 @@ function Keyboard:draw()
             --rect(v.x, v.y, r * string.len(v.glyph) -5, r -5)
         end
     end
-   self.keyfont:draw()
+    if self.shifted then
+        self.shiftkeyfont:draw()
+    else
+        self.keyfont:draw()
+    end
     self.display:draw()
     local t = CurrentTouch
     if (t.state == BEGAN) then
         self.keypressed = true
+        sound("hit", 314)
     end
     if ((t.state == ENDED) and self.keypressed) then
         self.keypressed = false
         local r2,k,v = self.radius^2
         for k,v in pairs(self.keyinfo) do
             if (self:d2({v.x, v.y}, {t.x, t.y}) < r2) then
-                sound("hit", 5)
-                self.text.txt = self.text.txt .. v.chr
+                if (v.glyph == "Shift") then
+                    self.shifted = not self.shifted
+                else
+                    if self.shifted then
+                        self.text.txt = self.text.txt .. v.schr
+                    else
+                        self.text.txt = self.text.txt .. v.chr
+                    end
+                end
             end
         end
     end
