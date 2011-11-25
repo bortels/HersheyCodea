@@ -58,28 +58,30 @@ function Keyboard:init()
     slash = { chr="/", glyph="/", schr="?", sglyph="?", row=1, col=13 },
     rshift = { chr="", glyph="Shift", schr="",
         sglyph="Shift", row=1, col=14 },
-    space = { chr=" ", glyph="space", schr="", sglyph="space", row=0, col=7 }
+    space = { chr=" ", glyph="space", schr="",
+        sglyph="space", row=0x0, col=0x7 }
 
-                   }
+    }
     self.radius = 25 
     self.keyfont = HersheyRomanSimplex()
     self.shiftkeyfont = HersheyRomanSimplex()
     self.display = HersheyRomanSimplex()
     self.text = self.display:addlabel{txt="You typed: ", x=300, y=500}
     self.shifted = false
-    --self.pads = {}
     self.drawpads = true
     self.keypressed = false
     local k,v, x, y
     for k,v in pairs(self.keyinfo) do
         x = v.col*(self.radius)*2 - self.radius*2
         if ((v.row == 3) or (v.row == 1)) then x=x-self.radius end
-        y = self.radius + v.row*(self.radius)*2 + 25
+        y = self.radius + v.row*(self.radius)*2 + self.radius
         v.x=x
         v.y=y
-        self.keyfont:addlabel{ txt=v.glyph, x=x, y=y }
-        self.shiftkeyfont:addlabel{ txt=v.sglyph, x=x, y=y }
-       -- table.insert(self.pads, {x, y})
+        local w
+        w = (self.radius - self.keyfont:stringwidth(v.glyph))/2
+        self.keyfont:addlabel{ txt=v.glyph, x=x+w, y=y+4 }
+        w = (self.radius - self.shiftkeyfont:stringwidth(v.sglyph))/2
+        self.shiftkeyfont:addlabel{ txt=v.sglyph, x=x+w, y=y }
     end
 end
 
@@ -89,13 +91,20 @@ end
 
 function Keyboard:draw()
     if self.drawpads then
+        pushStyle()
+        noStroke()
         local k,v,r,r2
         r = self.radius*2
         r2 = self.radius/2
         for k,v in pairs(self.keyinfo) do
-            ellipse(v.x+r2, v.y+r2, r, r)
+            if v.drawpad then
+                v.drawpad()
+            else
+                ellipse(v.x+r2, v.y+r2, r, r)
+            end
             --rect(v.x, v.y, r * string.len(v.glyph) -5, r -5)
         end
+        popStyle()
     end
     if self.shifted then
         self.shiftkeyfont:draw()
